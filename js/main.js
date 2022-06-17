@@ -18,7 +18,6 @@ function init() {
         } else {
             modal1 = new bootstrap.Modal('#modal1');
         }
-
         getTypes(mType); //取得支出或收入的分類
         launchModal1(mType, mTitle); //出現填寫資料的modal
     });
@@ -28,8 +27,7 @@ function init() {
 function launchModal1(mType, mTitle) {
     $('#modal1 .btn-close').hide();
 
-
-    //判斷是否填寫完整
+    //按完成，判斷是否填寫完整
     $('#modal1 .btn-option').click(function (event) {
         errorAry = [];
         let tmpObj;
@@ -50,6 +48,14 @@ function launchModal1(mType, mTitle) {
         }
 
         modal1.hide();
+    });
+
+    //按取消，清除輸入
+    $('#modal1 .btn-close2').click(function (event) {
+        $('#modal1 input[name="come-type:checked"]').val() == 0;
+        $('#modal1 input[name="price"]').val() == '';
+        $('#modal1 input[name="memo"]').val() == '';
+        $('#modal1 input[name="date"]').val() == '';
     });
 
     //如果沒填好，出現錯誤提示；填好的話，上傳資料
@@ -105,6 +111,7 @@ function showTypes(n, type) {
         <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type${n}" autocomplete="off" value="${type}">
         <label class="btn btn-secondary input-group-text" for="come-type${n}">${type}</label>
     `;
+
     return html;
 }
 
@@ -129,37 +136,11 @@ function showAlert(content) {
 function postData() {
     let params = {};
     params.method = 'write1';
-    params.userName = $('input[name=userName]').val();
-    params.schoolName = $('input[name=schoolName]').val();
-    params.userTitle = $('input[name=userTitle]').val();
-    params.userTel = $('input[name=userTel]').val();
-    params.userEmail = $('input[name=userEmail]').val();
+    params.price = $('input[name="price"]').val();
+    params.memo = $('input[name="memo"]').val();
+    params.date = $('input[name="date"]').val();
     //radio
-    params.schoolType = $('input[name=schoolType]:checked').val();
-    //select
-    params.userID = $('select[name=userID]').val();
-    //checkbox
-    let ary = [];
-    $('input[name=userNeed1]:checked').each(function (index, el, arys) {
-        // console.log($(this).val());
-        if ($(this).val() == '其他') {
-            ary.push($(this).val() + ': ' + $('input[name=userNeed1-5-text]').val());
-        } else {
-            ary.push($(this).val());
-        }
-    })
-    params.userNeed1 = JSON.stringify(ary);
-
-    //checkbox
-    let ary2 = $('input[name=userNeed2]:checked').map(function (index, el) {
-        // console.log($(this).val());
-        return $(this).val();
-    }).get();
-    params.userNeed2 = JSON.stringify(ary2);
-
-    //textarea
-    params.userNeed3 = $('textarea[name=userNeed3]').val();
-    params.userNeed4 = $('textarea[name=userNeed4]').val();
+    paramstype = $('input[name=come-type]:checked').val();
 
     // console.log(params);
     $.post(URL, params, function (data) {
