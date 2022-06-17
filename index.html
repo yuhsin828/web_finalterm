@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/main.css">
-    <title>Form</title>
+    <title>記帳本</title>
 </head>
 
 <body>
@@ -21,51 +21,104 @@
     <section>
         <div class="container">
             <article id="article1" class="article article1">
-                <!-- income outcome -->
-                <div class="input-group mb-3">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">支出</button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">支出</a></li>
-                        <li><a class="dropdown-item" href="#">收入</a></li>
-                    </ul>
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"  id="price" name="price">
-                </div>
-                <!-- type -->
-                <div class="input-group mb-3">
-                    <span class="input-group-text">分類</span>
-                    <div class="input-group-text bg-white flex-fill">
-                        <div class="input-group">
-                            <input type="radio" class="btn-check form-check-input" name="options" id="option1" autocomplete="off" value="飲食">
-                            <label class="btn btn-secondary input-group-text" for="option1">飲食</label>
+                <!-- new income or outcome -->
+                <button type="button" class="btn btn-info btn-launch new-outcome" mType="1" mTitle="支出"
+                    static>新增支出</button>
+                <button type="button" class="btn btn-info btn-launch new-income" mType="2" mTitle="收入"
+                    static>新增收入</button>
 
-                            <input type="radio" class="btn-check form-check-input" name="options" id="option2" autocomplete="off" value="居家">
-                            <label class="btn btn-secondary input-group-text" for="option2">居家</label>
+                <!-- 視窗的組件 Modal -->
+                <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header border-bottom-0">
+                                <div class="text"></div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- type -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">分類</span>
+                                    <div class="input-group-text bg-white flex-fill">
+                                        <div class="input-group" id="TYPE">
+                                            <!-- <input type="radio" class="btn-check form-check-input" name="come-type"
+                                                id="come-type1" autocomplete="off" value="飲食">
+                                            <label class="btn btn-secondary input-group-text"
+                                                for="come-type1">飲食</label>
 
-                            <input type="radio" class="btn-check form-check-input" name="options" id="option3" autocomplete="off" value="學習">
-                            <label class="btn btn-secondary input-group-text" for="option3">學習</label>
+                                            <input type="radio" class="btn-check form-check-input" name="come-type"
+                                                id="come-type2" autocomplete="off" value="居家">
+                                            <label class="btn btn-secondary input-group-text"
+                                                for="come-type2">居家</label>
 
-                            <input type="radio" class="btn-check form-check-input" name="options" id="option4" autocomplete="off" value="健康">
-                            <label class="btn btn-secondary input-group-text" for="option4">健康</label>
+                                            <input type="radio" class="btn-check form-check-input" name="come-type"
+                                                id="come-type3" autocomplete="off" value="學習">
+                                            <label class="btn btn-secondary input-group-text"
+                                                for="come-type3">學習</label>
+
+                                            <input type="radio" class="btn-check form-check-input" name="come-type"
+                                                id="come-type" autocomplete="off" value="健康">
+                                            <label class="btn btn-secondary input-group-text"
+                                                for="come-type4">健康</label> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- price -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+                                        id="price" name="price">
+                                </div>
+                                <!-- memo -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">備註</span>
+                                    <input type="text" class="form-control" id="memo" name="memo">
+                                </div>
+                                <!-- date -->
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">日期</span>
+                                    <span class="add-on input-group-text"><i class="fa fa-calendar"
+                                            aria-hidden="true"></i></span>
+                                    <input class="controls input-append date form_date form-control" data-date=""
+                                        data-date-format="dd MM yyyy" data-link-field="dtp_input2"
+                                        data-link-format="yyyy-mm-dd" type="text" value="" readonly>
+                                    <input type="hidden" id="dtp_input2" value="" name="date"><br>
+                                </div>
+                            </div>
+                            <div class="modal-footer border-top-0">
+                                <button type="button" class="btn btn-secondary btn-close2"
+                                    data-bs-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary btn-option btn-send">完成</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- memo -->
-                <div class="input-group mb-3">
-                    <span class="input-group-text">備註</span>
-                    <input type="text" class="form-control" id="memo" name="memo">
+
+                <div class="modal fade" id="sysModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header border-bottom-0">
+                                <div class="text"></div>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer border-top-0">
+                                <button type="button" class="btn btn-primary btn-option">了解</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- date -->
-                <div class="input-group mb-3">
-                    <span class="input-group-text">日期</span>
-                    <span class="add-on input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                    <input class="controls input-append date form_date form-control" data-date=""
-                        data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd"
-                        type="text" value="" readonly>
-                    <input type="hidden" id="dtp_input2" value=""><br>
-                </div>
-                <button class="btn btn-info btn-send">新增</button>
+
+
+
+
+
+
+                <!-- <button class="btn btn-info btn-send">新增</button> -->
             </article>
         </div>
     </section>
