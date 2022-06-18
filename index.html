@@ -40,11 +40,11 @@
 
                 <div class="container hide rounded bg-form p-3">
                     <!-- choose type -->
-                    <p class="bg-form border-0 mb-1">分類</p>
+                    <p class="mb-1">分類</p>
                     <div class="input-group mb-3 tip-group">
-                        <div class="bg-white flex-fill minh-150">
-                            <div class="d-flex justify-content-start align-items-center flex-wrap" id="TYPE">
-                                <!-- <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type1"
+                        <div class="d-flex justify-content-start align-items-center flex-wrap form-control minh-150 bg-field border-0"
+                            id="TYPE">
+                            <!-- <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type1"
                                 autocomplete="off" value="飲食">
                             <label class="btn btn-secondary input-group-text" for="come-type1">飲食</label>
 
@@ -59,34 +59,33 @@
                             <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type"
                                 autocomplete="off" value="健康">
                             <label class="btn btn-secondary input-group-text" for="come-type4">健康</label> -->
-                            </div>
                         </div>
-                    </div>
-
-                    <!-- input price -->
-                    <div class="input-group mb-3 tip-group">
-                        <span class="input-group-text">$</span>
-                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="price"
-                            name="price">
                     </div>
 
                     <!-- input memo un -->
                     <div class="input-group mb-3">
-                        <span class="input-group-text">備註</span>
-                        <input type="text" class="form-control" id="memo" name="memo">
+                        <span class="input-group-text bg-label bdy">備註</span>
+                        <input type="text" class="form-control bg-field bdy" id="memo" name="memo">
+                    </div>
+
+                    <!-- input price -->
+                    <div class="input-group mb-3 tip-group">
+                        <span class="input-group-text bg-label bdy">$</span>
+                        <input type="text" class="form-control bg-field  bdy" aria-label="Amount (to the nearest dollar)" id="price"
+                            name="price">
                     </div>
 
                     <!-- choose date -->
                     <div class="input-group mb-3 tip-group">
                         <!-- <span class="input-group-text">日期</span> -->
-                        <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                        <input type="button" class="form-control" id="datetimepicker" value="" name="date"
+                        <span class="input-group-text bg-label bdy"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        <input type="button" class="form-control bg-field bdy" id="datetimepicker" value="" name="date"
                             placeholder="請選擇日期">
                     </div>
 
                     <!-- submit -->
                     <div class="d-grid gap-2 col-2 mx-auto">
-                        <input class="btn btn-info btn-done" type="submit" value="完成">
+                        <input class="btn bg-btn btn-done" type="submit" value="完成">
                     </div>
 
                 </div>

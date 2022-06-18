@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycbzlL-jANGgvx_3ka1gdQ4miWDHDlVa883ZhMyMqL-H1rDCqGycuYsG6dznJEjSK5JXA/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbykuaNyYYPNr4046LR4d0kkiCnu45k23YVGVjCk27wL_fimBh3GvkwVuiJCG4Hx6Z66/exec';
 
 let cSwitch;
 let lastSwitch = 0;
@@ -20,6 +20,7 @@ function init() {
             $('input[type="text"]').val('');
             $('input[name="date"]').val('');
             $('.tip-group').find('.tip').remove();
+            $('.tip-group .form-control').removeClass('bdr');
             $('#TYPE').html('');
             // 取得支出或收入的分類
             getTypes(cSwitch);
@@ -120,12 +121,12 @@ function setTip(dom) {
     let template = $('#tips').html();
     if (dom.closest('.tip-group').find('.tip').length == 0) {
         dom.closest('.tip-group').append(template);
-        dom.closest('.tip-group').addClass('bdr');
+        dom.closest('.tip-group .form-control').addClass('bdr');
     }
 }
 function removeTip(dom) {
     dom.closest('.tip-group').find('.tip').remove();
-    dom.closest('.tip-group').removeClass('bdr');
+    dom.closest('.tip-group .form-control').removeClass('bdr');
 }
 
 
