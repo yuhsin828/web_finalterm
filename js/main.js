@@ -1,4 +1,6 @@
-const URL = 'https://script.google.com/macros/s/AKfycbxjX2Ar4Empiz7NQxXiXtCpCp9B34CUA2H-YS3wtwZO_gL1LBMDeYsfh5FRGArhN-hI/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbzlL-jANGgvx_3ka1gdQ4miWDHDlVa883ZhMyMqL-H1rDCqGycuYsG6dznJEjSK5JXA/exec';
+
+let mType;
 
 $(document).ready(function () {
     init();
@@ -11,7 +13,7 @@ function init() {
         $('input[type="text"]').val('');
         $('#TYPE').html('');
         // 取得支出或收入的分類
-        let mType = $(this).attr('mType');
+        mType = $(this).attr('mType');
         getTypes(mType);
 
         $('.hide').show(); // 出現填寫欄位
@@ -22,9 +24,6 @@ function init() {
     // 按完成，上傳資料，並清空
     $('.btn-done').click(function (e) {
         doneCheck();
-        // postData();
-        // $('input[type="text"]').val('');
-        // $('#TYPE').html('');
     });
 }
 
@@ -46,10 +45,10 @@ function calendar() {
 function getTypes(mType) {
     let params = {};
     switch (mType) {
-        case '1':
+        case '支出':
             params.method = 'read2';
             break;
-        case '2':
+        case '收入':
             params.method = 'read3';
             break;
     }
@@ -80,7 +79,7 @@ function showTypes(n, type) {
 
 
 // 離開文字輸入欄位時，判斷是否有填寫
-let event_ary = ['input[type=text]', 'input[type=button]'];
+let event_ary = ['input[type=text]', 'input[name=date]'];
 for (let i = 0; i < event_ary.length; i++) {
     $(event_ary[i]).focusout(function (e) {
         if ($(this).val() == '') {
@@ -96,7 +95,7 @@ for (let i = 0; i < event_ary.length; i++) {
 $('input[type=radio]').change(function (e) {
     removeTip($(this));
 });
-$('input[type=button]').change(function (e) {
+$('input[name=date]').change(function (e) {
     removeTip($(this));
 });
 
@@ -135,10 +134,10 @@ function doneCheck() {
     postData();
 }
 
-
 function postData() {
     let params = {};
     params.method = 'write1';
+    params.come = mType;
     params.price = $('input[name="price"]').val();
     params.memo = $('input[name="memo"]').val();
     params.date = $('input[name="date"]').val();
@@ -148,11 +147,14 @@ function postData() {
     console.log(params);
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
-            alert('sus')
+            alert('新增成功')
         } else {
             alert(data)
         }
     }).fail(function (data) {
         alert(data)
     });
+    $('input[type="text"]').val('');
+    $('input[name="date"]').val('');
+    $('#TYPE').html('');
 }

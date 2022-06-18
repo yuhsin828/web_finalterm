@@ -23,9 +23,9 @@
             <article id="article1" class="article article1">
                 <!-- new income or outcome -->
                 <input type="button" class="btn btn-outline-secondary new-outcome" name="in-out" id="outcome"
-                    value="新增支出" mType="1"></input>
+                    value="新增支出" mType="支出"></input>
                 <input type="button" class="btn btn-outline-secondary new-income" name="in-out" id="income" value="新增收入"
-                    mType="2"></input>
+                    mType="收入"></input>
 
                 <div class="container border border-secondary border-2 rounded hide">
                     <!-- choose type -->
@@ -69,7 +69,8 @@
                     <div class="input-group mb-3 tip-group">
                         <!-- <span class="input-group-text">日期</span> -->
                         <span class="input-group-text"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                        <input type="button" class="form-control" id="datetimepicker" value="" name="date" placeholder="請選擇日期">
+                        <input type="button" class="form-control" id="datetimepicker" value="" name="date"
+                            placeholder="請選擇日期">
                     </div>
 
                     <!-- submit -->
@@ -89,21 +90,6 @@
     <script src="./js/bootstrap-datetimepicker.min.js"></script>
     <script src="./js/bootstrap-datetimepicker.zh-TW.js"></script>
     <script src="./js/main.js"></script>
-
-
-    <!-- <script type="text/javascript">
-        $('.form_date').datetimepicker({
-            language: 'zh-TW',
-            format: 'yyyy-mm-dd',//日期格式
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            forceParse: 0
-        });
-    </script> -->
 
 </body>
 
