@@ -15,24 +15,35 @@
     <title>記帳本</title>
 </head>
 
+<div class="submit-loading">
+    <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
 <body>
     <header></header>
     <nav></nav>
     <section>
         <div class="container">
             <article id="article1" class="article article1">
-                <!-- new income or outcome -->
-                <input type="button" class="btn btn-outline-secondary new-outcome" name="in-out" id="outcome"
-                    value="新增支出" mType="支出"></input>
-                <input type="button" class="btn btn-outline-secondary new-income" name="in-out" id="income" value="新增收入"
-                    mType="收入"></input>
+                <div class="switch-loading">
+                    <div class="spinner-border text-secondary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
 
-                <div class="container border border-secondary border-2 rounded hide">
+                <!-- new income or outcome -->
+                <input type="button" class="btn new-outcome" name="in-out" id="outcome" value="新增支出"
+                    cSwitch="支出"></input>
+                <input type="button" class="btn new-income" name="in-out" id="income" value="新增收入" cSwitch="收入"></input>
+
+                <div class="container hide rounded bg-form p-3">
                     <!-- choose type -->
+                    <p class="bg-form border-0 mb-1">分類</p>
                     <div class="input-group mb-3 tip-group">
-                        <span class="input-group-text">分類</span>
-                        <div class="input-group-text bg-white flex-fill">
-                            <div class="input-group" id="TYPE">
+                        <div class="bg-white flex-fill minh-150">
+                            <div class="d-flex justify-content-start align-items-center flex-wrap" id="TYPE">
                                 <!-- <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type1"
                                 autocomplete="off" value="飲食">
                             <label class="btn btn-secondary input-group-text" for="come-type1">飲食</label>
@@ -74,7 +85,10 @@
                     </div>
 
                     <!-- submit -->
-                    <input class="btn btn-primary btn-done" type="submit" value="完成">
+                    <div class="d-grid gap-2 col-2 mx-auto">
+                        <input class="btn btn-info btn-done" type="submit" value="完成">
+                    </div>
+
                 </div>
             </article>
 
@@ -95,9 +109,12 @@
 
 <!-- 分類選項 -->
 <template id="showTypes" style="display: none;">
-    <input type="radio" class="btn-check form-check-input" name="come-type" id="come-typeN" autocomplete="off"
-        value="TYPE">
-    <label class="btn btn-secondary input-group-text" for="come-typeN">TYPE</label>
+    <div class="p-2">
+        <input type="radio" class="btn-check form-check-input mx-1" name="come-type" id="come-typeN" autocomplete="off"
+            value="TYPE">
+        <label class="btn btn-secondary input-group-text" for="come-typeN">TYPE</label>
+    </div>
+
 </template>
 
 <!-- 必填提示 -->

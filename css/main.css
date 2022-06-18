@@ -1,4 +1,28 @@
-.tip{
+.submit-loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	width: 100%;
+	height: 100vh;
+	z-index: 2;
+	display: none;
+	place-items: center;
+}
+
+.switch-loading {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+	width: 100%;
+	height: 100vh;
+	z-index: 2;
+	display: none;
+	place-items: center;
+}
+
+.tip {
 	width: 100%;
 	font-size: 14px;
 	color: red;
@@ -9,3 +33,16 @@
 	border: 1px solid red;
 	border-radius: 3px;
 } */
+
+.minh-150{
+	min-height: 150px;
+}
+
+.bg-form {
+	background-color: rgb(255, 236, 149);
+}
+
+
+.red{
+	background-color: #000;
+}

@@ -1,6 +1,7 @@
 const URL = 'https://script.google.com/macros/s/AKfycbzlL-jANGgvx_3ka1gdQ4miWDHDlVa883ZhMyMqL-H1rDCqGycuYsG6dznJEjSK5JXA/exec';
 
-let mType;
+let cSwitch;
+let lastSwitch = 0;
 
 $(document).ready(function () {
     init();
@@ -8,18 +9,25 @@ $(document).ready(function () {
 
 function init() {
     $('.hide').hide(); // 一開始隱藏填寫欄位
+
     $("input[name='in-out']").click(function (e) {
-        // 清空
-        $('input[type="text"]').val('');
-        $('#TYPE').html('');
-        // 取得支出或收入的分類
-        mType = $(this).attr('mType');
-        getTypes(mType);
-
+        $(this).addClass('bg-form'); // 切換鈕出現背景
         $('.hide').show(); // 出現填寫欄位
-    });
 
-    calendar(); // 產生日期選擇
+        cSwitch = $(this).attr('cSwitch');
+        if (cSwitch != lastSwitch) {
+            // 清空
+            $('input[type="text"]').val('');
+            $('input[name="date"]').val('');
+            $('.tip-group').find('.tip').remove();
+            $('#TYPE').html('');
+            // 取得支出或收入的分類
+            getTypes(cSwitch);
+        } else {
+
+        }
+        calendar(); // 產生日期選擇器
+    });
 
     // 按完成，上傳資料，並清空
     $('.btn-done').click(function (e) {
@@ -30,7 +38,7 @@ function init() {
 function calendar() {
     $('#datetimepicker').datetimepicker({
         language: 'zh-TW',
-        format: 'yyyy-mm-dd', // 日期格式
+        format: 'yyyy-mm-dd',
         weekStart: 1,
         todayBtn: 1,
         autoclose: 1,
@@ -42,13 +50,17 @@ function calendar() {
     });
 }
 
-function getTypes(mType) {
+function getTypes(cSwitch) {
+    lastSwitch = cSwitch;
+    $('.switch-loading').css('display', 'grid');
     let params = {};
-    switch (mType) {
+    switch (cSwitch) {
         case '支出':
+            $('#income').removeClass('bg-form');
             params.method = 'read2';
             break;
         case '收入':
+            $('#outcome').removeClass('bg-form');
             params.method = 'read3';
             break;
     }
@@ -59,8 +71,10 @@ function getTypes(mType) {
                 let content = showTypes(i + 1, types[i]);
                 $('#TYPE').append(content);
             }
+            $('.switch-loading').css('display', 'none');
         } else {
-
+            $('.switch-loading').css('display', 'none');
+            alert('error');
         }
     }).fail(function (data) {
         console.log("fail");
@@ -70,8 +84,10 @@ function getTypes(mType) {
 
 function showTypes(n, type) {
     let html = `
+    <div class="p-2">    
         <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type${n}" autocomplete="off" value="${type}">
         <label class="btn btn-secondary input-group-text" for="come-type${n}">${type}</label>
+    </div>
     `;
     return html;
 }
@@ -94,11 +110,10 @@ for (let i = 0; i < event_ary.length; i++) {
 }
 $('input[type=radio]').change(function (e) {
     removeTip($(this));
-});
+}); // 沒作用
 $('input[name=date]').change(function (e) {
     removeTip($(this));
 });
-
 
 
 function setTip(dom) {
@@ -112,6 +127,7 @@ function removeTip(dom) {
     dom.closest('.tip-group').find('.tip').remove();
     dom.closest('.tip-group').removeClass('bdr');
 }
+
 
 
 function doneCheck() {
@@ -137,7 +153,7 @@ function doneCheck() {
 function postData() {
     let params = {};
     params.method = 'write1';
-    params.come = mType;
+    params.come = cSwitch;
     params.price = $('input[name="price"]').val();
     params.memo = $('input[name="memo"]').val();
     params.date = $('input[name="date"]').val();
@@ -145,16 +161,21 @@ function postData() {
     params.type = $('input[name=come-type]:checked').val();
 
     console.log(params);
+
+    $('.submit-loading').css('display', 'grid');
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
-            alert('新增成功')
+            $('.submit-loading').css('display', 'none');
+            alert('新增成功');
+
         } else {
-            alert(data)
+            $('.submit-loading').css('display', 'none');
+            alert('error: ' + data.msg);
         }
     }).fail(function (data) {
         alert(data)
     });
     $('input[type="text"]').val('');
     $('input[name="date"]').val('');
-    $('#TYPE').html('');
+    // $('input[type=radio]:checked').val() == undefined;
 }
