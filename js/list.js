@@ -1,6 +1,4 @@
-//用自己的網址不行，用老師的可以
-const URL = 'https://script.google.com/macros/s/AKfycbxN7cc7fJAYCOjlZ5vy1dasDEK-FT2i5o7iAas8Vj6qE_mF991peQRycGYP9tA0oEtb6A/exec';
-//老師的網址 https://script.google.com/macros/s/AKfycbyX4iJNJQ9lw4nPVDtgmNUXOUza28KLoBymK-XsvdNjKPVJIB_hraBn1Azpjkht9MmOxg/exec
+// const URL = 'https://script.google.com/macros/s/AKfycbxN7cc7fJAYCOjlZ5vy1dasDEK-FT2i5o7iAas8Vj6qE_mF991peQRycGYP9tA0oEtb6A/exec';
 
 $(document).ready(function () {
     loadData();
