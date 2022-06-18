@@ -1,19 +1,20 @@
-const URL = 'https://script.google.com/macros/s/AKfycbykuaNyYYPNr4046LR4d0kkiCnu45k23YVGVjCk27wL_fimBh3GvkwVuiJCG4Hx6Z66/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbw5U24VEQYw3hWz-oWmN1z5rLTXTuIphRoUNGF_95p12mu0x7df6qefjX3Khf9kgbid/exec';
 
-let cSwitch;
+let cSwitch = '支出';
 let lastSwitch = 0;
 
 $(document).ready(function () {
     init();
+
 });
 
 function init() {
-    $('.hide').hide(); // 一開始隱藏填寫欄位
+    getTypes(cSwitch);
+    $('#outcome').addClass('bg-form');
+    calendar(); // 產生日期選擇器
 
     $("input[name='in-out']").click(function (e) {
         $(this).addClass('bg-form'); // 切換鈕出現背景
-        $('.hide').show(); // 出現填寫欄位
-
         cSwitch = $(this).attr('cSwitch');
         if (cSwitch != lastSwitch) {
             // 清空
@@ -27,8 +28,10 @@ function init() {
         } else {
 
         }
-        calendar(); // 產生日期選擇器
     });
+
+    // 出現記帳清單
+    loadData();
 
     // 按完成，上傳資料，並清空
     $('.btn-done').click(function (e) {
@@ -168,7 +171,6 @@ function postData() {
         if (data.result == 'sus') {
             $('.submit-loading').css('display', 'none');
             alert('新增成功');
-
         } else {
             $('.submit-loading').css('display', 'none');
             alert('error: ' + data.msg);
@@ -179,4 +181,41 @@ function postData() {
     $('input[type="text"]').val('');
     $('input[name="date"]').val('');
     // $('input[type=radio]:checked').val() == undefined;
+    loadData();
+}
+
+
+// -----------------------   出現記帳清單     ----------------------
+function loadData() {
+    let params = {};
+    params.method = 'read1';
+
+    $.post(URL, params, function (data) {
+        if (data.result == 'sus') {
+            let charge = data.data;
+            for (let i = 0; i < charge.length - 1; i++) {
+                let content = oneRow(charge[i]);
+                $('#LIST').append(content);
+                console.log(charge[i])
+            }
+        } else {
+
+        }
+    }).fail(function (data) {
+
+    });
+}
+
+
+function oneRow(data) {
+    let html = `
+    <div class="row p-2 mb-3 mx-3 rounded bg-field">
+        <div class="col text-center">${data.date.substring(0, 10)}</div>
+        <div class="col text-center">${data.come}</div>
+        <div class="col text-center">${data.type}</div>
+        <div class="col text-center">${data.price}</div>
+        <div class="col text-center">${data.memo}</div>
+    </div>
+    `
+    return html;
 }

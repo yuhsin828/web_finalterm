@@ -20,19 +20,18 @@
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
+<div class="switch-loading">
+    <div class="spinner-border text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
 
 <body>
     <header></header>
     <nav></nav>
     <section>
         <div class="container">
-            <article id="article1" class="article article1">
-                <div class="switch-loading">
-                    <div class="spinner-border text-secondary" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-
+            <article id="article1" class="article article1 my-5">
                 <!-- new income or outcome -->
                 <input type="button" class="btn new-outcome" name="in-out" id="outcome" value="新增支出"
                     cSwitch="支出"></input>
@@ -71,22 +70,41 @@
                     <!-- input price -->
                     <div class="input-group mb-3 tip-group">
                         <span class="input-group-text bg-label bdy">$</span>
-                        <input type="text" class="form-control bg-field  bdy" aria-label="Amount (to the nearest dollar)" id="price"
-                            name="price">
+                        <input type="text" class="form-control bg-field  bdy"
+                            aria-label="Amount (to the nearest dollar)" id="price" name="price">
                     </div>
 
                     <!-- choose date -->
                     <div class="input-group mb-3 tip-group">
                         <!-- <span class="input-group-text">日期</span> -->
-                        <span class="input-group-text bg-label bdy"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                        <input type="button" class="form-control bg-field bdy" id="datetimepicker" value="" name="date"
-                            placeholder="請選擇日期">
+                        <span class="input-group-text bg-label bdy"><i class="fa fa-calendar"
+                                aria-hidden="true"></i></span>
+                        <input type="button" class="form-control bg-field bdy" id="datetimepicker" value="" name="date">
                     </div>
 
                     <!-- submit -->
                     <div class="d-grid gap-2 col-2 mx-auto">
                         <input class="btn bg-btn btn-done" type="submit" value="完成">
                     </div>
+                </div>
+            </article>
+
+            <article id="article2" class="article article2 my-5">
+                <div class="container rounded bg-form p-3" id="LIST">
+                    <div class="row p-2 mb-3 mx-3 fw-bold">
+                        <div class="col text-center">日期</div>
+                        <div class="col text-center">支出/收入</div>
+                        <div class="col text-center">分類</div>
+                        <div class="col text-center">金額</div>
+                        <div class="col text-center">備註</div>
+                    </div>
+                    <!-- <div class="row p-2 mb-3 mx-3 rounded bg-field">
+                        <div class="col text-center">2022-05-24</div>
+                        <div class="col text-center">支出</div>
+                        <div class="col text-center">健康</div>
+                        <div class="col text-center">1280</div>
+                        <div class="col text-center">電動牙刷</div>
+                    </div> -->
 
                 </div>
             </article>
@@ -121,6 +139,17 @@
     <div class="tip">
         <i class="fa fa-exclamation-circle"></i>
         <span>這是必填的欄位</span>
+    </div>
+</template>
+
+<!-- 一條帳 -->
+<template id="showList" style="display: none;">
+    <div class="row p-2 mb-3 mx-3 rounded bg-field">
+        <div class="col text-center">DATE</div>
+        <div class="col text-center">COME</div>
+        <div class="col text-center">TYPE</div>
+        <div class="col text-center">PRICE</div>
+        <div class="col text-center">MEMO</div>
     </div>
 </template>
 

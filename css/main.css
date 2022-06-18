@@ -33,13 +33,17 @@
 	min-height: 150px;
 }
 
+/* .article1{
+	min-height: 100vh;
+} */
+
 .bdr {
 	border: 1px solid red;
 	border-radius: 3px;
 }
 
 .bdy {
-	border: 1px solid rgb(255, 217, 0);
+	border: 1px solid rgb(250, 226, 87);
 	border-radius: 5px;
 }
 
@@ -53,9 +57,9 @@
 }
 
 .bg-label {
-	background-color: rgb(255, 217, 0);
+	background-color: rgb(250, 226, 87);
 }
 
 .bg-btn {
-	background-color: rgb(0, 179, 255);
+	background-color: rgb(59, 190, 246);
 }
