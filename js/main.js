@@ -5,42 +5,31 @@ $(document).ready(function () {
 });
 
 function init() {
-    $('.hide').hide();
+    $('.hide').hide(); // 一開始隱藏填寫欄位
     $("input[name='in-out']").click(function (e) {
+        // 清空
+        $('input[type="text"]').val('');
+        $('#TYPE').html('');
+        // 取得支出或收入的分類
         let mType = $(this).attr('mType');
-        getTypes(mType); // 取得支出或收入的分類
-        $('.hide').show();
+        getTypes(mType);
+
+        $('.hide').show(); // 出現填寫欄位
     });
-    calendar();
 
-    // 判斷是否填寫
-    let event_ary = ['input[type=text]'];
-    for (let i = 0; i < event_ary.length; i++) {
-        $(event_ary[i]).focusout(function (e) {
-            if ($(this).val() == '') {
-                let template = $('#tips').html();
-                if ($(this).closest('.tip-group').find('.tip').length == 0) {
-                    $(this).closest('.tip-group').append(template);
-                    $(this).closest('.tip-group').addClass('bdr');
-                    // console.log('tip');
-                }
-            }
-        });
-        $(event_ary[i]).keyup(function (e) {
-            if ($(this).val() != '') {
-                $(this).closest('.tip-group').find('.tip').remove();
-                $(this).closest('.tip-group').removeClass('bdr');
-            }
-        });
-    }
+    calendar(); // 產生日期選擇
 
+    // 按完成，上傳資料，並清空
     $('.btn-done').click(function (e) {
-        postData();
+        doneCheck();
+        // postData();
+        // $('input[type="text"]').val('');
+        // $('#TYPE').html('');
     });
 }
 
 function calendar() {
-    $('.form_date').datetimepicker({
+    $('#datetimepicker').datetimepicker({
         language: 'zh-TW',
         format: 'yyyy-mm-dd', // 日期格式
         weekStart: 1,
@@ -90,33 +79,61 @@ function showTypes(n, type) {
 
 
 
-// //如果沒填好，出現錯誤提示；填好的話，上傳資料
-// $('#modal1').on('hidden.bs.modal', function (e) {
-//     if (errorAry.length > 0) {
-//         showAlert(errorAry.shift().msg);
-//     } else {
-//         $(this).unbind('hidden.bs.modal');
-//         $('#sysModal').unbind('hidden.bs.modal');
-//         $('#modal1 .btn-option').unbind('click')
-//         postData();
-//     }
-// });
-
-// function showAlert(content) {
-//     $('#sysModal .modal-body').html(content);
-//     $('#sysModal .btn-option').click(function (event) {
-//         $(this).unbind('click');
-//         sysModal.hide();
-//     });
-//     sysModal.show();
-// }
-
-
+// 離開文字輸入欄位時，判斷是否有填寫
+let event_ary = ['input[type=text]', 'input[type=button]'];
+for (let i = 0; i < event_ary.length; i++) {
+    $(event_ary[i]).focusout(function (e) {
+        if ($(this).val() == '') {
+            setTip($(this));
+        }
+    });
+    $(event_ary[i]).keyup(function (e) {
+        if ($(this).val() != '') {
+            removeTip($(this));
+        }
+    });
+}
+$('input[type=radio]').change(function (e) {
+    removeTip($(this));
+});
+$('input[type=button]').change(function (e) {
+    removeTip($(this));
+});
 
 
 
+function setTip(dom) {
+    let template = $('#tips').html();
+    if (dom.closest('.tip-group').find('.tip').length == 0) {
+        dom.closest('.tip-group').append(template);
+        dom.closest('.tip-group').addClass('bdr');
+    }
+}
+function removeTip(dom) {
+    dom.closest('.tip-group').find('.tip').remove();
+    dom.closest('.tip-group').removeClass('bdr');
+}
 
 
+function doneCheck() {
+    if ($('input[type=radio]:checked').val() == undefined) {
+        setTip($('input[type=radio]'));
+        return false;
+    }
+    if ($('input[name="price"]').val() == '') {
+        setTip($('input[name="price"]'));
+        return false;
+    }
+    // if ($('input[name="memo"]').val() == '') {
+    //     setTip($('input[name="memo"]'));
+    //     return false;
+    // } // memo非必填
+    if ($('input[name="date"]').val() == '') {
+        setTip($('input[name="date"]'));
+        return false;
+    }
+    postData();
+}
 
 
 function postData() {
@@ -126,9 +143,9 @@ function postData() {
     params.memo = $('input[name="memo"]').val();
     params.date = $('input[name="date"]').val();
     //radio
-    paramstype = $('input[name=come-type]:checked').val();
+    params.type = $('input[name=come-type]:checked').val();
 
-    // console.log(params);
+    console.log(params);
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
             alert('sus')
