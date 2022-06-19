@@ -2,7 +2,7 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(31, 31, 59, 0.3);
 	width: 100%;
 	height: 100vh;
 	z-index: 2;
@@ -21,10 +21,6 @@
 	min-height: 150px;
 }
 
-/* .article1{
-	min-height: 100vh;
-} */
-
 .bdr {
 	border: 1px solid rgb(255, 94, 0) !important;
 	border-radius: 3px !important;
@@ -37,29 +33,47 @@
 
 
 .bg-form {
-	background-color: rgb(255, 238, 163);
+	background-color: #ffeea3;
 }
 
 .bg-field {
-	background-color: rgb(255, 252, 241);
+	background-color: #fffcf1;
 }
 
 .bg-label {
-	background-color: rgb(250, 226, 87);
+	background-color: #FFE261;
 }
 
 .btn-done {
-	background-color: #3F40E0;
+	background-color: #7575ec;
 }
 
 .btn-done:hover {
-	background-color: #5151ff;
+	background-color: #6969ff;
 }
 
-.btn-back {
-	background-color: #c8c8db;
+.nav-btn {
+	text-decoration: none;
+	width: 80px;
+	height: 80px;
+	background-color: #fff3be;
+	border-radius: 50%;
+	color: #6c757d;
 }
 
-.btn-back:hover {
-	background-color: #a4a4ab;
+.nav-btn-active {
+	text-decoration: none;
+	width: 80px;
+	height: 80px;
+	background-color: #FFE261;
+	border-radius: 50%;
+	color: #5b5b60;
+}
+
+.nav-btn:hover {
+	color: #000000
+}
+
+.nav-btn-active:hover {
+	color: #000000
 }

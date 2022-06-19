@@ -15,18 +15,33 @@
 </head>
 
 <div class="loading">
-    <div class="spinner-border text-secondary" role="status">
+    <div class="spinner-border text-warning" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
 
 <body>
     <header></header>
-    <nav></nav>
+    <nav class="d-flex justify-content-evenly my-5">
+        <a href="./input.html" class="nav-btn d-flex align-items-center justify-content-center fs-4">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="nav-btn-active d-flex align-items-center justify-content-center fs-4">
+            <i class="fa fa-list" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="nav-btn d-flex align-items-center justify-content-center fs-4">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+        </a>
+    </nav>
     <section>
         <div class="container">
-            <article id="article2" class="article article2 my-5">
+            <article id="" class="my-5">
                 <div class="container rounded bg-form p-3" id="LIST">
+                    <div class="d-flex justify-content-end mb-3 mx-3 filter">
+                        <input type="month" class="col-4 p-2 bg-field bdy" name="month">
+                        <input class="col-2 btn-filter border-0" type="submit" value="篩選">
+                    </div>
+
                     <div class="row p-2 mb-3 mx-3 fw-bold">
                         <div class="col-3 text-center">日期</div>
                         <div class="col-2 text-center">收/支</div>

@@ -15,22 +15,32 @@
 </head>
 
 <div class="loading">
-    <div class="spinner-border text-secondary" role="status">
+    <div class="spinner-border text-warning" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
 </div>
 
 <body>
     <header></header>
-    <nav></nav>
+    <nav class="d-flex justify-content-evenly my-5">
+        <a href="#" class="nav-btn-active d-flex align-items-center justify-content-center fs-4">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+        <a href="./index.html" class="nav-btn d-flex align-items-center justify-content-center fs-4">
+            <i class="fa fa-list" aria-hidden="true"></i>
+        </a>
+        <a href="#" class="nav-btn d-flex align-items-center justify-content-center fs-4">
+            <i class="fa fa-cog" aria-hidden="true"></i>
+        </a>
+    </nav>
     <section>
         <div class="container">
-            <article id="article1" class="article article1 my-5">
+            <article id="" class="my-5">
                 <!-- new income or outcome -->
                 <div class="d-flex justify-content-center">
-                    <input type="button" class="btn new-outcome fw-bold" name="in-out" id="outcome" value="新增支出"
+                    <input type="button" class="btn new-outcome fw-bold col-6" name="in-out" id="outcome" value="新增支出"
                         cSwitch="支出">
-                    <input type="button" class="btn new-income fw-bold" name="in-out" id="income" value="新增收入"
+                    <input type="button" class="btn new-income fw-bold col-6" name="in-out" id="income" value="新增收入"
                         cSwitch="收入">
                 </div>
 
@@ -46,15 +56,7 @@
 
                             <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type2"
                                 autocomplete="off" value="居家">
-                            <label class="btn btn-secondary input-group-text" for="come-type2">居家</label>
-
-                            <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type3"
-                                autocomplete="off" value="學習">
-                            <label class="btn btn-secondary input-group-text" for="come-type3">學習</label>
-
-                            <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type"
-                                autocomplete="off" value="健康">
-                            <label class="btn btn-secondary input-group-text" for="come-type4">健康</label> -->
+                            <label class="btn btn-secondary input-group-text" for="come-type2">居家</label>-->
                         </div>
                     </div>
 
@@ -73,16 +75,15 @@
 
                     <!-- choose date -->
                     <div class="input-group mb-4 tip-group">
-                        <!-- <span class="input-group-text">日期</span> -->
-                        <span class="input-group-text bg-label bdy"><i class="fa fa-calendar"
-                                aria-hidden="true"></i></span>
+                        <span class="input-group-text bg-label bdy fw-bolder">日期</span>
+                        <!-- <span class="input-group-text bg-label bdy"><i class="fa fa-calendar"
+                                aria-hidden="true"></i></span> -->
                         <input type="date" class="form-control bg-field bdy" name="date">
                     </div>
 
                     <!-- submit -->
-                    <div class="d-flex justify-content-evenly">
-                        <a href="./index.html" class="col-2 btn btn-back">返回</a>
-                        <input class="col-2 btn-done fw-bolder text-light border-0 rounded" type="submit" value="完成">
+                    <div class="d-flex justify-content-center">
+                        <input class="col-2 btn-done fw-bolder text-light border-0 rounded p-2" type="submit" value="完成">
                     </div>
                 </div>
             </article>
