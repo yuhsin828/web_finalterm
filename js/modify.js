@@ -1,52 +1,60 @@
-const URL = 'https://script.google.com/macros/s/AKfycby8gDQsbnVrWubldwQRxXZp6gDaL76p6lISaOG_ii2NHYcjY6-rxUJpK40YsxLo8Un7/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbw7NTwwYYhRJ_aFx7tv-YpHg8t5-8q9kLHH7-0TslYfpTUEBQxckhDE4Nf3aPprP9o/exec';
 
-let cSwitch = '支出';
-let lastSwitch = 0;
+let pageID = document.location.toString().split('?')[1];
+let cSwitch;
 
 $(document).ready(function () {
-    init();
-});
-
-function init() {
-    getTypes(cSwitch);
-    $('#outcome').addClass('bg-form');
-
-    $("input[name='in-out']").click(function (e) {
-        $(this).addClass('bg-form'); // 切換鈕出現背景
-        cSwitch = $(this).attr('cSwitch');
-        if (cSwitch != lastSwitch) {
-            // 清空
-            $('input[type="text"]').val('');
-            $('input[name="date"]').val('');
-            $('.tip-group').find('.tip').remove();
-            $('.tip-group .form-control').removeClass('bdr');
-            $('#TYPE').html('');
-            // 取得支出或收入的分類
-            getTypes(cSwitch);
-        } else {
-            alert('error: ' + data.msg);
-        }
-    });
-
+    getData();
     // 按下完成，檢查是否有填寫，上傳資料，清空欄位
     $('.btn-done').click(function (e) {
         doneCheck();
     });
+});
+
+
+// -----------------------   點進一條帳     ----------------------
+function getData() {
+    $('.loading').css('display', 'grid');
+    let params = {};
+    params.method = 'readA';
+    params.id = pageID;
+
+    $.post(URL, params, function (data) {
+        if (data.result == 'sus') {
+            let charge = data.data[0];
+            initPage(charge);
+        } else {
+            alert('error: ' + data.msg);
+        }
+    }).fail(function (data) {
+        console.log("fail");
+        console.log(data);
+    });
 }
 
+function initPage(charge) {
+    cSwitch = charge.come;
+    if (cSwitch == '收入') {
+        $('.cSwitch').text('編輯收入');
+    } else {
+        $('.cSwitch').text('編輯支出');
+    }
+    getTypes(cSwitch);
+    $('input[name=price]').val(charge.price);
+    $('input[name=memo]').val(charge.memo);
+    $('input[name=date]').val(charge.date.substring(0, 10));
+    $('input[name=come-type]:checked').val(charge.type);
+    // console.log(charge.type)
+}
 
 // -----------------------   取得支出或收入的分類     ----------------------
 function getTypes(cSwitch) {
-    lastSwitch = cSwitch;
-    $('.loading').css('display', 'grid');
     let params = {};
     switch (cSwitch) {
         case '支出':
-            $('#income').removeClass('bg-form');
             params.method = 'read2';
             break;
         case '收入':
-            $('#outcome').removeClass('bg-form');
             params.method = 'read3';
             break;
     }
@@ -78,8 +86,6 @@ function showTypes(n, type) {
     return html;
 }
 
-
-
 // -----------------------   離開文字輸入欄位時，判斷是否有填寫     ----------------------
 let event_ary = ['input[name=price]', 'input[name=date]'];
 for (let i = 0; i < event_ary.length; i++) {
@@ -94,14 +100,25 @@ for (let i = 0; i < event_ary.length; i++) {
         }
     });
 }
-ruleNumTip();
 $('input[type=radio]').change(function (e) {
     removeTip($(this)); // 沒作用！？
 });
 $('input[name=date]').change(function (e) {
     removeTip($(this));
 });
-
+$('input[name=price]').blur(function (e) {
+    const rule_num = /[0-9]/; // 判斷是否是數字
+    let t2 = $('#ruleNum').html();
+    if ($(this).val() != '') {
+        if (rule_num.test($(this).val())) {
+            $(this).closest('.tip-group').find('.tip').remove();
+            $(this).closest('.tip-group .form-control').removeClass('bdr');
+        } else {
+            $(this).closest('.tip-group').append(t2);
+            $(this).closest('.tip-group .form-control').addClass('bdr');
+        }
+    }
+})
 
 function setTip(dom) {
     let t1 = $('#tips').html();
@@ -113,21 +130,6 @@ function setTip(dom) {
 function removeTip(dom) {
     dom.closest('.tip-group').find('.tip').remove();
     dom.closest('.tip-group .form-control').removeClass('bdr');
-}
-function ruleNumTip() {
-    $('input[name=price]').blur(function (e) {
-        const rule_num = /[0-9]/; // 判斷是否是數字
-        let t2 = $('#ruleNum').html();
-        if ($(this).val() != '') {
-            if (rule_num.test($(this).val())) {
-                $(this).closest('.tip-group').find('.tip').remove();
-                $(this).closest('.tip-group .form-control').removeClass('bdr');
-            } else {
-                $(this).closest('.tip-group').append(t2);
-                $(this).closest('.tip-group .form-control').addClass('bdr');
-            }
-        }
-    })
 }
 
 
@@ -149,13 +151,15 @@ function doneCheck() {
         setTip($('input[name=date]'));
         return false;
     }
-    postData();
+    modifyData();
 }
 
-// 上傳資料
-function postData() {
+// 上傳更新的資料
+function modifyData() {
+    $('.loading').css('display', 'grid');
     let params = {};
-    params.method = 'write1';
+    params.method = 'modify1';
+    params.id = pageID;
     params.come = cSwitch;
     params.price = $('input[name=price]').val();
     params.memo = $('input[name=memo]').val();
@@ -163,11 +167,10 @@ function postData() {
     //radio
     params.type = $('input[name=come-type]:checked').val();
 
-    $('.loading').css('display', 'grid');
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
             $('.loading').css('display', 'none');
-            alert('新增成功');
+            alert('更新成功');
         } else {
             $('.loading').css('display', 'none');
             alert('error: ' + data.msg);
@@ -176,9 +179,4 @@ function postData() {
         console.log("fail");
         console.log(data);
     });
-
-    // 清空欄位
-    $('input[type=text]').val('');
-    $('input[name=date]').val('');
-    // $('input[type=radio]:checked').val() == undefined;
 }

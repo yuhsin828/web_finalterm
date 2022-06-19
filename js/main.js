@@ -1,4 +1,5 @@
-const URL = 'https://script.google.com/macros/s/AKfycbxaRRRfm7e974jqQWvZUriRtS6z4nHTNSve6VvcgEUZGbrPJ7UafWBraWMR8d7YJGE/exec';
+const URL = 'https://script.google.com/macros/s/AKfycby8gDQsbnVrWubldwQRxXZp6gDaL76p6lISaOG_ii2NHYcjY6-rxUJpK40YsxLo8Un7/exec';
+let pageID = [];
 
 $(document).ready(function () {
     loadData();
@@ -13,30 +14,31 @@ function loadData() {
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
             let charge = data.data;
-            for (let i = 0; i < charge.length; i++) {
+            for (let i = 1; i < charge.length; i++) {
                 let content = oneRow(charge[i]);
+                pageID.push(charge[i].id);
                 $('#LIST').append(content);
-                console.log(charge[i])
             }
             $('.loading').css('display', 'none');
         } else {
             $('.loading').css('display', 'none');
+            alert('error: ' + data.msg);
         }
     }).fail(function (data) {
-
+        console.log("fail");
+        console.log(data);
     });
 }
 
-
 function oneRow(data) {
     let html = `
-    <div class="row p-2 mb-3 mx-3 rounded bg-field">
+    <a href="./modify.html?${data.id}" class="row p-2 mb-3 mx-3 rounded bg-field text-decoration-none text-black">
         <div class="col-3 text-center">${data.date.substring(0, 10)}</div>
         <div class="col-2 text-center">${data.come}</div>
         <div class="col-2 text-center">${data.type}</div>
         <div class="col-2 text-center">${data.price}</div>
         <div class="col-3 text-center">${data.memo}</div>
-    </div>
+    </a>
     `
     return html;
 }
