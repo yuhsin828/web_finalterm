@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycbw5U24VEQYw3hWz-oWmN1z5rLTXTuIphRoUNGF_95p12mu0x7df6qefjX3Khf9kgbid/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbxaRRRfm7e974jqQWvZUriRtS6z4nHTNSve6VvcgEUZGbrPJ7UafWBraWMR8d7YJGE/exec';
 
 let cSwitch = '支出';
 let lastSwitch = 0;
@@ -181,7 +181,7 @@ function postData() {
     $('input[type="text"]').val('');
     $('input[name="date"]').val('');
     // $('input[type=radio]:checked').val() == undefined;
-    loadData();
+
 }
 
 
@@ -193,7 +193,7 @@ function loadData() {
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
             let charge = data.data;
-            for (let i = 0; i < charge.length - 1; i++) {
+            for (let i = 0; i < charge.length; i++) {
                 let content = oneRow(charge[i]);
                 $('#LIST').append(content);
                 console.log(charge[i])
@@ -210,11 +210,11 @@ function loadData() {
 function oneRow(data) {
     let html = `
     <div class="row p-2 mb-3 mx-3 rounded bg-field">
-        <div class="col text-center">${data.date.substring(0, 10)}</div>
-        <div class="col text-center">${data.come}</div>
-        <div class="col text-center">${data.type}</div>
-        <div class="col text-center">${data.price}</div>
-        <div class="col text-center">${data.memo}</div>
+        <div class="col-3 text-center">${data.date.substring(0, 10)}</div>
+        <div class="col-2 text-center">${data.come}</div>
+        <div class="col-2 text-center">${data.type}</div>
+        <div class="col-2 text-center">${data.price}</div>
+        <div class="col-3 text-center">${data.memo}</div>
     </div>
     `
     return html;
