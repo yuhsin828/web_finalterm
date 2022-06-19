@@ -33,12 +33,13 @@ function loadData() {
 function oneRow(data) {
     let html = `
     <a href="./modify.html?${data.id}" class="row p-2 mb-3 mx-3 rounded bg-field text-decoration-none text-black">
-        <div class="col-3 text-center">${data.date.substring(0, 10)}</div>
+        <div class="col-3 text-center">${moment(data.date).format('YYYY/MM/DD')}</div>
         <div class="col-2 text-center">${data.come}</div>
         <div class="col-2 text-center">${data.type}</div>
         <div class="col-2 text-center">${data.price}</div>
         <div class="col-3 text-center">${data.memo}</div>
     </a>
     `
+    
     return html;
 }

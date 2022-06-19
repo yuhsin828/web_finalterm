@@ -103,6 +103,9 @@ $('input[type=radio]').change(function (e) {
 $('input[name=date]').change(function (e) {
     removeTip($(this));
 });
+$('input[name=price]').change(function (e) {
+    removeTip($(this));
+});
 
 // $('input[name=price]').focusout(function (e) {
 //     if ($(this).val() != '') {

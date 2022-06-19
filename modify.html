@@ -35,7 +35,7 @@
                     <a href="./index.html" class="text-decoration-none text-black fs-4">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     </a>
-                    <div class="d-flex align-items-center justify-content-center cSwitch fw-bold col-4 bg-form">編輯</div>
+                    <div class="d-flex align-items-center justify-content-center cSwitch fw-bold col-4 bg-form">-</div>
                 </div>
                 <div class="container hide rounded bg-form p-3">
                     <!-- choose type -->
@@ -62,7 +62,7 @@
                     <!-- input price -->
                     <div class="input-group mb-3 tip-group">
                         <span class="input-group-text bg-label bdy fw-bolder">$</span>
-                        <input type="number" class="form-control bg-field  bdy"
+                        <input type="number" min=1 class="form-control bg-field  bdy"
                             aria-label="Amount (to the nearest dollar)" id="price" name="price">
                     </div>
 
@@ -88,7 +88,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <!-- <script src="./js/input.js"></script> -->
+    <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src="./js/modify.js"></script>
 
 </body>
@@ -107,14 +107,6 @@
     <div class="tip">
         <i class="fa fa-exclamation-circle"></i>
         <span>這是必填的欄位</span>
-    </div>
-</template>
-
-<!-- 輸入數字提示 -->
-<template id="ruleNum" style="display: none;">
-    <div class="tip">
-        <i class="fa fa-exclamation-circle"></i>
-        <span>請輸入數字</span>
     </div>
 </template>
 

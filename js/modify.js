@@ -35,20 +35,20 @@ function getData() {
 function initPage(charge) {
     cSwitch = charge.come;
     if (cSwitch == '收入') {
-        $('.cSwitch').text('編輯收入');
+        $('.cSwitch').text('編輯收入項目');
     } else {
-        $('.cSwitch').text('編輯支出');
+        $('.cSwitch').text('編輯支出項目');
     }
-    getTypes(cSwitch);
+    getTypes(cSwitch, charge.type);
     $('input[name=price]').val(charge.price);
     $('input[name=memo]').val(charge.memo);
-    $('input[name=date]').val(charge.date.substring(0, 10));
-    $('input[name=come-type]:checked').val(charge.type);
+    $('input[name=date]').val(moment(charge.date).format('YYYY-MM-DD'));
+    // $('input[name=come-type]:checked').val(charge.type);
     // console.log(charge.type)
 }
 
 // -----------------------   取得支出或收入的分類     ----------------------
-function getTypes(cSwitch) {
+function getTypes(cSwitch, checkedType) {
     let params = {};
     switch (cSwitch) {
         case '支出':
@@ -64,6 +64,9 @@ function getTypes(cSwitch) {
             for (let i = 0; i < types.length; i++) {
                 let content = showTypes(i + 1, types[i]);
                 $('#TYPE').append(content);
+                if (types[i].text == checkedType) {
+
+                }
             }
             $('.loading').css('display', 'none');
         } else {
@@ -105,6 +108,9 @@ $('input[type=radio]').change(function (e) {
     removeTip($(this)); // 沒作用！？
 });
 $('input[name=date]').change(function (e) {
+    removeTip($(this));
+});
+$('input[name=price]').change(function (e) {
     removeTip($(this));
 });
 
