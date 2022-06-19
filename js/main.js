@@ -5,13 +5,11 @@ let lastSwitch = 0;
 
 $(document).ready(function () {
     init();
-
 });
 
 function init() {
     getTypes(cSwitch);
     $('#outcome').addClass('bg-form');
-    calendar(); // 產生日期選擇器
 
     $("input[name='in-out']").click(function (e) {
         $(this).addClass('bg-form'); // 切換鈕出現背景
@@ -33,24 +31,9 @@ function init() {
     // 出現記帳清單
     loadData();
 
-    // 按完成，上傳資料，並清空
+    // 按下完成，檢查是否有填寫，上傳資料，清空欄位
     $('.btn-done').click(function (e) {
         doneCheck();
-    });
-}
-
-function calendar() {
-    $('#datetimepicker').datetimepicker({
-        language: 'zh-TW',
-        format: 'yyyy-mm-dd',
-        weekStart: 1,
-        todayBtn: 1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        keyboardNavigation: 1,
-        forceParse: 1
     });
 }
 
@@ -99,7 +82,8 @@ function showTypes(n, type) {
 
 
 // 離開文字輸入欄位時，判斷是否有填寫
-let event_ary = ['input[type=text]', 'input[name=date]'];
+let event_ary = ['input[name=price]', 'input[name=date]'];
+
 for (let i = 0; i < event_ary.length; i++) {
     $(event_ary[i]).focusout(function (e) {
         if ($(this).val() == '') {
@@ -113,17 +97,29 @@ for (let i = 0; i < event_ary.length; i++) {
     });
 }
 $('input[type=radio]').change(function (e) {
-    removeTip($(this));
-}); // 沒作用
+    removeTip($(this)); // 沒作用！？
+});
 $('input[name=date]').change(function (e) {
     removeTip($(this));
 });
-
+$('input[name=price]').blur(function (e) {
+    const rule_num = /[0-9]/; // 判斷是否是數字
+    let t2 = $('#ruleNum').html();
+    if ($(this).val() != '') {
+        if (rule_num.test($(this).val())) {
+            $(this).closest('.tip-group').find('.tip').remove();
+            $(this).closest('.tip-group .form-control').removeClass('bdr');
+        } else {
+            $(this).closest('.tip-group').append(t2);
+            $(this).closest('.tip-group .form-control').addClass('bdr');
+        }
+    }
+})
 
 function setTip(dom) {
-    let template = $('#tips').html();
+    let t1 = $('#tips').html();
     if (dom.closest('.tip-group').find('.tip').length == 0) {
-        dom.closest('.tip-group').append(template);
+        dom.closest('.tip-group').append(t1);
         dom.closest('.tip-group .form-control').addClass('bdr');
     }
 }
@@ -134,33 +130,35 @@ function removeTip(dom) {
 
 
 
+// 按下完成，檢查
 function doneCheck() {
     if ($('input[type=radio]:checked').val() == undefined) {
         setTip($('input[type=radio]'));
         return false;
     }
-    if ($('input[name="price"]').val() == '') {
-        setTip($('input[name="price"]'));
+    if ($('input[name=price]').val() == '') {
+        setTip($('input[name=price]'));
         return false;
     }
     // if ($('input[name="memo"]').val() == '') {
     //     setTip($('input[name="memo"]'));
     //     return false;
     // } // memo非必填
-    if ($('input[name="date"]').val() == '') {
-        setTip($('input[name="date"]'));
+    if ($('input[name=date]').val() == '') {
+        setTip($('input[name=date]'));
         return false;
     }
     postData();
 }
 
+// 上傳資料
 function postData() {
     let params = {};
     params.method = 'write1';
     params.come = cSwitch;
-    params.price = $('input[name="price"]').val();
-    params.memo = $('input[name="memo"]').val();
-    params.date = $('input[name="date"]').val();
+    params.price = $('input[name=price]').val();
+    params.memo = $('input[name=memo]').val();
+    params.date = $('input[name=date]').val();
     //radio
     params.type = $('input[name=come-type]:checked').val();
 
@@ -178,8 +176,10 @@ function postData() {
     }).fail(function (data) {
         alert(data)
     });
-    $('input[type="text"]').val('');
-    $('input[name="date"]').val('');
+
+    // 清空欄位
+    $('input[type=text]').val('');
+    $('input[name=date]').val('');
     // $('input[type=radio]:checked').val() == undefined;
 
 }
