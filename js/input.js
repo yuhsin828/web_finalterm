@@ -2,6 +2,7 @@ const URL = 'https://script.google.com/macros/s/AKfycby8gDQsbnVrWubldwQRxXZp6gDa
 
 let cSwitch = '支出';
 let lastSwitch = 0;
+// const rule_num = /\d/; // 判斷是否是數字
 
 $(document).ready(function () {
     init();
@@ -18,6 +19,7 @@ function init() {
             // 清空
             $('input[type="text"]').val('');
             $('input[name="date"]').val('');
+            $('input[name="price"]').val('');
             $('.tip-group').find('.tip').remove();
             $('.tip-group .form-control').removeClass('bdr');
             $('#TYPE').html('');
@@ -94,13 +96,19 @@ for (let i = 0; i < event_ary.length; i++) {
         }
     });
 }
-ruleNumTip();
+
 $('input[type=radio]').change(function (e) {
     removeTip($(this)); // 沒作用！？
 });
 $('input[name=date]').change(function (e) {
     removeTip($(this));
 });
+
+// $('input[name=price]').focusout(function (e) {
+//     if ($(this).val() != '') {
+//         ruleNumTip($(this));
+//     }
+// });
 
 
 function setTip(dom) {
@@ -114,21 +122,17 @@ function removeTip(dom) {
     dom.closest('.tip-group').find('.tip').remove();
     dom.closest('.tip-group .form-control').removeClass('bdr');
 }
-function ruleNumTip() {
-    $('input[name=price]').blur(function (e) {
-        const rule_num = /[0-9]/; // 判斷是否是數字
-        let t2 = $('#ruleNum').html();
-        if ($(this).val() != '') {
-            if (rule_num.test($(this).val())) {
-                $(this).closest('.tip-group').find('.tip').remove();
-                $(this).closest('.tip-group .form-control').removeClass('bdr');
-            } else {
-                $(this).closest('.tip-group').append(t2);
-                $(this).closest('.tip-group .form-control').addClass('bdr');
-            }
-        }
-    })
-}
+
+// function ruleNumTip(dom) {
+//     console.log(rule_num.test(dom.val()));
+//     dom.closest('.tip-group').find('.tip').remove();
+//     dom.closest('.tip-group .form-control').removeClass('bdr');
+//     let t2 = $('#ruleNum').html();
+//     if (rule_num.test(dom.val()) == false) {
+//         dom.closest('.tip-group').append(t2);
+//         dom.closest('.tip-group .form-control').addClass('bdr');
+//     }
+// }
 
 
 // -----------------------   按下完成，檢查     ----------------------
@@ -141,6 +145,10 @@ function doneCheck() {
         setTip($('input[name=price]'));
         return false;
     }
+    // if (rule_num.test($('input[name=price]').val()) == false) {
+    //     ruleNumTip($('input[name=price]'));
+    //     return false;
+    // }
     // if ($('input[name="memo"]').val() == '') {
     //     setTip($('input[name="memo"]'));
     //     return false;
@@ -180,5 +188,6 @@ function postData() {
     // 清空欄位
     $('input[type=text]').val('');
     $('input[name=date]').val('');
+    $('input[name=price]').val('');
     // $('input[type=radio]:checked').val() == undefined;
 }

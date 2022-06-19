@@ -12,7 +12,7 @@ $(document).ready(function () {
 });
 
 
-// -----------------------   點進一條帳     ----------------------
+// -----------------------   點進一條帳，出現資料     ----------------------
 function getData() {
     $('.loading').css('display', 'grid');
     let params = {};
@@ -100,25 +100,13 @@ for (let i = 0; i < event_ary.length; i++) {
         }
     });
 }
+
 $('input[type=radio]').change(function (e) {
     removeTip($(this)); // 沒作用！？
 });
 $('input[name=date]').change(function (e) {
     removeTip($(this));
 });
-$('input[name=price]').blur(function (e) {
-    const rule_num = /[0-9]/; // 判斷是否是數字
-    let t2 = $('#ruleNum').html();
-    if ($(this).val() != '') {
-        if (rule_num.test($(this).val())) {
-            $(this).closest('.tip-group').find('.tip').remove();
-            $(this).closest('.tip-group .form-control').removeClass('bdr');
-        } else {
-            $(this).closest('.tip-group').append(t2);
-            $(this).closest('.tip-group .form-control').addClass('bdr');
-        }
-    }
-})
 
 function setTip(dom) {
     let t1 = $('#tips').html();
