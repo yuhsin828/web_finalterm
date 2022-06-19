@@ -1,16 +1,4 @@
-.submit-loading {
-	position: fixed;
-	top: 0;
-	left: 0;
-	background-color: rgba(0, 0, 0, 0.4);
-	width: 100%;
-	height: 100vh;
-	z-index: 2;
-	display: none;
-	place-items: center;
-}
-
-.switch-loading {
+.loading {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -43,7 +31,7 @@
 }
 
 .bdy {
-	border: 1px solid rgb(250, 226, 87);
+	border: 1px solid #FFE261;
 	border-radius: 5px;
 }
 
@@ -60,6 +48,18 @@
 	background-color: rgb(250, 226, 87);
 }
 
-.bg-btn {
-	background-color: rgb(59, 190, 246);
+.btn-done {
+	background-color: #3F40E0;
+}
+
+.btn-done:hover {
+	background-color: #5151ff;
+}
+
+.btn-back {
+	background-color: #c8c8db;
+}
+
+.btn-back:hover {
+	background-color: #a4a4ab;
 }

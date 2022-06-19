@@ -14,12 +14,7 @@
     <title>記帳本</title>
 </head>
 
-<div class="submit-loading">
-    <div class="spinner-border text-secondary" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>
-<div class="switch-loading">
+<div class="loading">
     <div class="spinner-border text-secondary" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
@@ -30,64 +25,6 @@
     <nav></nav>
     <section>
         <div class="container">
-            <article id="article1" class="article article1 my-5">
-                <!-- new income or outcome -->
-                <input type="button" class="btn new-outcome" name="in-out" id="outcome" value="新增支出"
-                    cSwitch="支出"></input>
-                <input type="button" class="btn new-income" name="in-out" id="income" value="新增收入" cSwitch="收入"></input>
-
-                <div class="container hide rounded bg-form p-3">
-                    <!-- choose type -->
-                    <p class="mb-1">分類</p>
-                    <div class="input-group mb-3 tip-group">
-                        <div class="d-flex justify-content-start align-items-center flex-wrap form-control minh-150 bg-field border-0"
-                            id="TYPE">
-                            <!-- <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type1"
-                                autocomplete="off" value="飲食">
-                            <label class="btn btn-secondary input-group-text" for="come-type1">飲食</label>
-
-                            <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type2"
-                                autocomplete="off" value="居家">
-                            <label class="btn btn-secondary input-group-text" for="come-type2">居家</label>
-
-                            <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type3"
-                                autocomplete="off" value="學習">
-                            <label class="btn btn-secondary input-group-text" for="come-type3">學習</label>
-
-                            <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type"
-                                autocomplete="off" value="健康">
-                            <label class="btn btn-secondary input-group-text" for="come-type4">健康</label> -->
-                        </div>
-                    </div>
-
-                    <!-- input memo un -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text bg-label bdy">備註</span>
-                        <input type="text" class="form-control bg-field bdy" id="memo" name="memo">
-                    </div>
-
-                    <!-- input price -->
-                    <div class="input-group mb-3 tip-group">
-                        <span class="input-group-text bg-label bdy">$</span>
-                        <input type="text" class="form-control bg-field  bdy"
-                            aria-label="Amount (to the nearest dollar)" id="price" name="price">
-                    </div>
-
-                    <!-- choose date -->
-                    <div class="input-group mb-3 tip-group">
-                        <!-- <span class="input-group-text">日期</span> -->
-                        <span class="input-group-text bg-label bdy"><i class="fa fa-calendar"
-                                aria-hidden="true"></i></span>
-                        <input type="date" class="form-control bg-field bdy" name="date">
-                    </div>
-
-                    <!-- submit -->
-                    <div class="d-grid gap-2 col-2 mx-auto">
-                        <input class="btn bg-btn btn-done" type="submit" value="完成">
-                    </div>
-                </div>
-            </article>
-
             <article id="article2" class="article article2 my-5">
                 <div class="container rounded bg-form p-3" id="LIST">
                     <div class="row p-2 mb-3 mx-3 fw-bold">
@@ -98,13 +35,12 @@
                         <div class="col-3 text-center">備註</div>
                     </div>
                     <!-- <div class="row p-2 mb-3 mx-3 rounded bg-field">
-                        <div class="col text-center">2022-05-24</div>
-                        <div class="col text-center">支出</div>
-                        <div class="col text-center">健康</div>
-                        <div class="col text-center">1280</div>
-                        <div class="col text-center">電動牙刷</div>
-                    </div> -->
-
+                            <div class="col text-center">2022-05-24</div>
+                            <div class="col text-center">支出</div>
+                            <div class="col text-center">健康</div>
+                            <div class="col text-center">1280</div>
+                            <div class="col text-center">電動牙刷</div>
+                        </div> -->
                 </div>
             </article>
 
@@ -112,7 +48,6 @@
     </section>
     <footer></footer>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
@@ -120,32 +55,6 @@
     <script src="./js/main.js"></script>
 
 </body>
-
-<!-- 分類選項 -->
-<template id="showTypes" style="display: none;">
-    <div class="p-2">
-        <input type="radio" class="btn-check form-check-input mx-1" name="come-type" id="come-typeN" autocomplete="off"
-            value="TYPE">
-        <label class="btn btn-secondary input-group-text" for="come-typeN">TYPE</label>
-    </div>
-
-</template>
-
-<!-- 必填提示 -->
-<template id="tips" style="display: none;">
-    <div class="tip">
-        <i class="fa fa-exclamation-circle"></i>
-        <span>這是必填的欄位</span>
-    </div>
-</template>
-
-<!-- 輸入數字提示 -->
-<template id="ruleNum" style="display: none;">
-    <div class="tip">
-        <i class="fa fa-exclamation-circle"></i>
-        <span>請輸入數字</span>
-    </div>
-</template>
 
 <!-- 一條帳 -->
 <template id="showList" style="display: none;">
