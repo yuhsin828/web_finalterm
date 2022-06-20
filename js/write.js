@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycbyPcr2z2uKXWg_fLYuFoScOOJaECpgPOpff1Q_IsTrgtvlcIl8EDsBjdnS7B_2Hx2u0/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbxbqBmjqUyZYJ7j_fvjw0gjKSS86iZ3cDhA3ScoODUlQrOVgRqKpQpy3R8kxlMb82wM/exec';
 
 let cSwitch = '支出';
 let lastSwitch = 0;
@@ -12,19 +12,19 @@ function init() {
     getCateg(cSwitch);
     $('#outcome').addClass('bg-form');
 
-    $("input[name='in-out']").click(function (e) {
+    $('input[name=in-out]').click(function (e) {
         $(this).addClass('bg-form'); // 切換鈕出現背景
         cSwitch = $(this).attr('cSwitch');
         if (cSwitch != lastSwitch) {
             // 清空
-            $('input[type="text"]').val('');
-            $('input[type="date"]').val('');
-            $('input[type="number"]').val('');
+            $('input[type=text]').val('');
+            $('input[type=date]').val('');
+            $('input[type=number]').val('');
             $('.tip-group').find('.tip').remove();
             $('.tip-group .form-control').removeClass('bdr');
             $('#CATEG').html('');
-            // 取得支出或收入的分類
-            getCateg(cSwitch);
+            
+            getCateg(cSwitch); // 取得支出或收入的類別
         } else {
             alert('error: ' + data.msg);
         }
@@ -37,7 +37,7 @@ function init() {
 }
 
 
-// -----------------------   取得支出或收入的分類     ----------------------
+// -----------------------   取得支出或收入的類別     ----------------------
 function getCateg(cSwitch) {
     lastSwitch = cSwitch;
     $('.loading').css('display', 'grid');
@@ -65,7 +65,7 @@ function getCateg(cSwitch) {
             alert('error: ' + data.msg);
         }
     }).fail(function (data) {
-        console.log("fail");
+        console.log('fail');
         console.log(data);
     });
 }
@@ -79,7 +79,6 @@ function showCateg(n, categ) {
     `;
     return html;
 }
-
 
 
 // -----------------------   離開文字輸入欄位時，判斷是否有填寫     ----------------------
@@ -106,7 +105,6 @@ $('input[name=date]').change(function (e) {
 $('input[name=price]').change(function (e) {
     removeTip($(this));
 });
-
 // $('input[name=price]').focusout(function (e) {
 //     if ($(this).val() != '') {
 //         ruleNumTip($(this));
@@ -125,7 +123,6 @@ function removeTip(dom) {
     dom.closest('.tip-group').find('.tip').remove();
     dom.closest('.tip-group .form-control').removeClass('bdr');
 }
-
 // function ruleNumTip(dom) {
 //     console.log(rule_num.test(dom.val()));
 //     dom.closest('.tip-group').find('.tip').remove();
@@ -152,8 +149,8 @@ function doneCheck() {
     //     ruleNumTip($('input[name=price]'));
     //     return false;
     // }
-    // if ($('input[name="memo"]').val() == '') {
-    //     setTip($('input[name="memo"]'));
+    // if ($('input[name=memo]').val() == '') {
+    //     setTip($('input[name=memo]'));
     //     return false;
     // } // memo非必填
     if ($('input[name=date]').val() == '') {
@@ -171,8 +168,7 @@ function postData() {
     params.price = $('input[name=price]').val();
     params.memo = $('input[name=memo]').val();
     params.date = $('input[name=date]').val();
-    //radio
-    params.categ = $('input[name=come-categ]:checked').val();
+    params.categ = $('input[name=come-categ]:checked').val(); // radio
 
     $('.loading').css('display', 'grid');
     $.post(URL, params, function (data) {
@@ -184,7 +180,7 @@ function postData() {
             alert('error: ' + data.msg);
         }
     }).fail(function (data) {
-        console.log("fail");
+        console.log(fail);
         console.log(data);
     });
 

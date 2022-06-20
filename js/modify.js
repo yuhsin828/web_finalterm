@@ -1,11 +1,11 @@
-const URL = 'https://script.google.com/macros/s/AKfycbyPcr2z2uKXWg_fLYuFoScOOJaECpgPOpff1Q_IsTrgtvlcIl8EDsBjdnS7B_2Hx2u0/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbxbqBmjqUyZYJ7j_fvjw0gjKSS86iZ3cDhA3ScoODUlQrOVgRqKpQpy3R8kxlMb82wM/exec';
 
 let pageID = document.location.toString().split('?')[1];
 let cSwitch;
 
 $(document).ready(function () {
     getData();
-    // 按下完成，檢查是否有填寫，上傳資料，清空欄位
+    // 按下完成，檢查是否有填寫，上傳資料
     $('.btn-done').click(function (e) {
         doneCheck();
     });
@@ -27,19 +27,20 @@ function getData() {
             alert('error: ' + data.msg);
         }
     }).fail(function (data) {
-        console.log("fail");
+        console.log('fail');
         console.log(data);
     });
 }
 
 function initPage(charge) {
     cSwitch = charge.come;
+    getCateg(cSwitch, charge.categ);
     if (cSwitch == '收入') {
         $('.cSwitch').text('編輯收入記錄');
     } else {
         $('.cSwitch').text('編輯支出記錄');
     }
-    getCateg(cSwitch, charge.categ);
+    
     $('input[name=price]').val(charge.price);
     $('input[name=memo]').val(charge.memo);
     $('input[name=date]').val(moment(charge.date).format('YYYY-MM-DD'));
@@ -47,7 +48,8 @@ function initPage(charge) {
     // console.log(charge.categ)
 }
 
-// -----------------------   取得支出或收入的分類     ----------------------
+
+// -----------------------   取得支出或收入的類別     ----------------------
 function getCateg(cSwitch, checkedCateg) {
     let params = {};
     switch (cSwitch) {
@@ -74,7 +76,7 @@ function getCateg(cSwitch, checkedCateg) {
             alert('error: ' + data.msg);
         }
     }).fail(function (data) {
-        console.log("fail");
+        console.log('fail');
         console.log(data);
     });
 }
@@ -88,6 +90,7 @@ function showCateg(n, categ) {
     `;
     return html;
 }
+
 
 // -----------------------   離開文字輸入欄位時，判斷是否有填寫     ----------------------
 let event_ary = ['input[name=price]', 'input[name=date]'];
@@ -137,8 +140,8 @@ function doneCheck() {
         setTip($('input[name=price]'));
         return false;
     }
-    // if ($('input[name="memo"]').val() == '') {
-    //     setTip($('input[name="memo"]'));
+    // if ($('input[name=memo]').val() == '') {
+    //     setTip($('input[name=memo]'));
     //     return false;
     // } // memo非必填
     if ($('input[name=date]').val() == '') {
@@ -170,7 +173,7 @@ function modifyData() {
             alert('error: ' + data.msg);
         }
     }).fail(function (data) {
-        console.log("fail");
+        console.log('fail');
         console.log(data);
     });
 }

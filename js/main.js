@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycbyPcr2z2uKXWg_fLYuFoScOOJaECpgPOpff1Q_IsTrgtvlcIl8EDsBjdnS7B_2Hx2u0/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbxbqBmjqUyZYJ7j_fvjw0gjKSS86iZ3cDhA3ScoODUlQrOVgRqKpQpy3R8kxlMb82wM/exec';
 let pageID = [];
 
 $(document).ready(function () {
@@ -25,7 +25,7 @@ function loadData() {
             alert('error: ' + data.msg);
         }
     }).fail(function (data) {
-        console.log("fail");
+        console.log('fail');
         console.log(data);
     });
 }
@@ -40,6 +40,5 @@ function oneRow(charge) {
         <div class="col-3 text-center">${charge.memo}</div>
     </a>
     `
-    
     return html;
 }
