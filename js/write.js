@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycbxbqBmjqUyZYJ7j_fvjw0gjKSS86iZ3cDhA3ScoODUlQrOVgRqKpQpy3R8kxlMb82wM/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbwNcJeNVjvsrZNQH8JLvUqFd29AEsoB4lfMQTVhpXyITvR4Jwlq94NDQbGwHlS_z3eh/exec';
 
 let cSwitch = '支出';
 let lastSwitch = 0;
@@ -10,8 +10,6 @@ $(document).ready(function () {
 
 function init() {
     getCateg(cSwitch);
-    $('#outcome').addClass('bg-form');
-
     $('input[name=in-out]').click(function (e) {
         $(this).addClass('bg-form'); // 切換鈕出現背景
         cSwitch = $(this).attr('cSwitch');
@@ -26,7 +24,7 @@ function init() {
             
             getCateg(cSwitch); // 取得支出或收入的類別
         } else {
-            alert('error: ' + data.msg);
+            
         }
     });
 

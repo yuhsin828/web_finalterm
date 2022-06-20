@@ -1,10 +1,16 @@
-const URL = 'https://script.google.com/macros/s/AKfycbxbqBmjqUyZYJ7j_fvjw0gjKSS86iZ3cDhA3ScoODUlQrOVgRqKpQpy3R8kxlMb82wM/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbwNcJeNVjvsrZNQH8JLvUqFd29AEsoB4lfMQTVhpXyITvR4Jwlq94NDQbGwHlS_z3eh/exec';
 
 let pageID = document.location.toString().split('?')[1];
 let cSwitch;
 
 $(document).ready(function () {
     getData();
+
+    // 按下刪除，確認是否要刪除
+    $('.btn-del').click(function (e) {
+        deleteConfirm();
+    });
+
     // 按下完成，檢查是否有填寫，上傳資料
     $('.btn-done').click(function (e) {
         doneCheck();
@@ -40,7 +46,7 @@ function initPage(charge) {
     } else {
         $('.cSwitch').text('編輯支出記錄');
     }
-    
+
     $('input[name=price]').val(charge.price);
     $('input[name=memo]').val(charge.memo);
     $('input[name=date]').val(moment(charge.date).format('YYYY-MM-DD'));
@@ -155,19 +161,51 @@ function doneCheck() {
 function modifyData() {
     $('.loading').css('display', 'grid');
     let params = {};
-    params.method = 'modify1';
+    params.method = 'modifyA';
     params.id = pageID;
     params.come = cSwitch;
     params.price = $('input[name=price]').val();
     params.memo = $('input[name=memo]').val();
     params.date = $('input[name=date]').val();
-    //radio
-    params.categ = $('input[name=come-categ]:checked').val();
+    params.categ = $('input[name=come-categ]:checked').val(); // radio
 
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
             $('.loading').css('display', 'none');
             alert('更新成功');
+        } else {
+            $('.loading').css('display', 'none');
+            alert('error: ' + data.msg);
+        }
+    }).fail(function (data) {
+        console.log('fail');
+        console.log(data);
+    });
+}
+
+
+// -----------------------   按下刪除，確認     ----------------------
+function deleteConfirm() {
+    if (confirm('確定要刪除這筆記錄？')) {
+        deleteData();
+    } else {
+        alert('未刪除');
+    }
+
+}
+
+// 刪除資料
+function deleteData() {
+    $('.loading').css('display', 'grid');
+    let params = {};
+    params.method = 'deleteA';
+    params.id = pageID;
+
+    $.post(URL, params, function (data) {
+        if (data.result == 'sus') {
+            $('.loading').css('display', 'none');
+            alert('刪除成功');
+            history.back();
         } else {
             $('.loading').css('display', 'none');
             alert('error: ' + data.msg);
