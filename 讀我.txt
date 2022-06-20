@@ -1,0 +1,34 @@
+記帳工具
+Google試算表連結：https://docs.google.com/spreadsheets/d/1hCrkDaR6w4edBN9WVQzMNgvPRIpl29cFTrewPtgP4XM/edit?usp=sharing
+
+【有點囉嗦的說明】
+首頁(index.html)：
+1. 讀取試算表的帳目資料，依照日期由近到遠排序
+2. 用moment.js修正日期格式
+
+新增資料(write.html)：
+1. 切換新增支出/新增收入，類別從試算表讀取
+2. 用focusout、keyup判斷金額、日期有無填寫，無則出現tip，有則移除tip
+3. 按下新增，檢查有無類別、金額、日期，無則出現tip，直到都填好了才送出資料
+
+修改資料(modify.html)：
+1. 從首頁點進一筆資料，取得它的ID加在網址後面
+2. 從網址抓取ID，到試算表找該筆資料
+3. 按下刪除，先確認是否刪除，確認則deleteRow
+4. 按下確認，更新該筆資料
+
+
+【想做但沒時間了 嗚嗚】
+1. 首頁 只查看某年某月的帳目，統計該月總支出、總收入、餘額......
+2. 設定頁 編輯支出或收入的類別
+
+
+【不知如何解決的問題】
+按下新增後出現的「類別」tip無法消除
+$('input[type=radio]').change(function (e) { 
+    removeTip($(this));
+});
+在write.js的第97行
+
+
+感謝老師！

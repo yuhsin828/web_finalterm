@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycbwNcJeNVjvsrZNQH8JLvUqFd29AEsoB4lfMQTVhpXyITvR4Jwlq94NDQbGwHlS_z3eh/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbwVsLlEguiN3vm6x08UPSrboCFy6mJl0GU98K9VyMO4LVGlanzFNHyBv_wIPdDfY5eI/exec';
 
 let cSwitch = '支出';
 let lastSwitch = 0;
@@ -174,6 +174,7 @@ function postData() {
         if (data.result == 'sus') {
             $('.loading').css('display', 'none');
             alert('新增成功');
+            history.back();
         } else {
             $('.loading').css('display', 'none');
             alert('error: ' + data.msg);
@@ -183,9 +184,9 @@ function postData() {
         console.log(data);
     });
 
-    // 清空欄位
-    $('input[type=text]').val('');
-    $('input[type=date]').val('');
-    $('input[type=number]').val('');
-    $('input[name=come-categ]').prop("checked", false);
+    // // 清空欄位
+    // $('input[type=text]').val('');
+    // $('input[type=date]').val('');
+    // $('input[type=number]').val('');
+    // $('input[name=come-categ]').prop("checked", false);
 }

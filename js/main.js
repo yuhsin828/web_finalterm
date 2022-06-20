@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycbwNcJeNVjvsrZNQH8JLvUqFd29AEsoB4lfMQTVhpXyITvR4Jwlq94NDQbGwHlS_z3eh/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbwVsLlEguiN3vm6x08UPSrboCFy6mJl0GU98K9VyMO4LVGlanzFNHyBv_wIPdDfY5eI/exec';
 let pageID = [];
 
 $(document).ready(function () {
