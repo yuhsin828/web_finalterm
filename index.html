@@ -39,7 +39,9 @@
                 <div class="container rounded bg-form p-3" id="LIST">
                     <div class="d-flex justify-content-end mb-3 mx-3 filter">
                         <input type="month" class="col-4 p-2 bg-field bdy" name="month">
-                        <input class="col-2 btn-filter border-0" type="submit" value="篩選">
+                        <button type="submit" class="col-1 btn-filter bg-label bdy fw-bolder border-0 rounded p-2">
+                            <i class="fa fa-filter" aria-hidden="true"></i>
+                        </button>
                     </div>
 
                     <div class="row p-2 mb-3 mx-3 fw-bold">
@@ -49,7 +51,7 @@
                         <div class="col-2 text-center">金額</div>
                         <div class="col-3 text-center">備註</div>
                     </div>
-                    <!--<a href="./modify.html" class="row p-2 mb-3 mx-3 rounded bg-field text-decoration-none text-black">
+                    <!--<a href="./modify.html" class="row p-2 mb-3 mx-3 rounded bg-field text-decoration-none text-dark">
                             <div class="col-3 text-center">2022-05-24</div>
                             <div class="col-2 text-center">支出</div>
                             <div class="col-2 text-center">健康</div>
@@ -74,10 +76,10 @@
 
 <!-- 一條帳 -->
 <template id="showList" style="display: none;">
-    <a href="./modify.html?ID" class="row p-2 mb-3 mx-3 rounded bg-field text-decoration-none text-black">
+    <a href="./modify.html?ID" class="row p-2 mb-3 mx-3 rounded bg-field text-decoration-none text-dark">
         <div class="col-3 text-center">DATE</div>
         <div class="col-2 text-center">COME</div>
-        <div class="col-2 text-center">TYPE</div>
+        <div class="col-2 text-center">CATEG</div>
         <div class="col-2 text-center">PRICE</div>
         <div class="col-3 text-center">MEMO</div>
     </a>

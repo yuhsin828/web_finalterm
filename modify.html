@@ -11,7 +11,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/main.css">
-    <title>編輯記帳</title>
+    <title>編輯記錄</title>
 </head>
 
 <div class="loading">
@@ -22,34 +22,33 @@
 
 <body>
     <header></header>
-    <nav>
-        <div class="container my-5">
-
-        </div>
-    </nav>
+    <nav></nav>
     <section>
         <div class="container">
             <article id="" class="my-5">
-                <!-- income or outcome -->
+                <!-- modify income or outcome -->
                 <div class="d-flex justify-content-between">
-                    <a href="./index.html" class="text-decoration-none text-black fs-4">
+                    <a href="./index.html" class="p-2 text-decoration-none text-dark fs-5">
                         <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     </a>
-                    <div class="d-flex align-items-center justify-content-center cSwitch fw-bold col-4 bg-form">-</div>
+                    <div class="p-2 d-flex align-items-center justify-content-center cSwitch fw-bold">-</div>
+                    <button type="button" class="p-2 border-0 bg-transparent text-dark fs-5">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
                 </div>
-                <div class="container hide rounded bg-form p-3">
-                    <!-- choose type -->
+                <div class="container rounded bg-form p-3">
+                    <!-- choose categ -->
                     <p class="mb-1 fw-bolder">分類</p>
                     <div class="input-group mb-3 tip-group">
                         <div class="d-flex justify-content-start align-items-center flex-wrap form-control minh-150 bg-field border-0"
-                            id="TYPE">
-                            <!-- <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type1"
+                            id="CATEG">
+                            <!-- <input type="radio" class="btn-check form-check-input" name="come-categ" id="come-categ1"
                                 autocomplete="off" value="飲食">
-                            <label class="btn btn-secondary input-group-text" for="come-type1">飲食</label>
+                            <label class="btn btn-secondary input-group-text" for="come-categ1">飲食</label>
 
-                            <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type2"
+                            <input type="radio" class="btn-check form-check-input" name="come-categ" id="come-categ2"
                                 autocomplete="off" value="居家">
-                            <label class="btn btn-secondary input-group-text" for="come-type2">居家</label>-->
+                            <label class="btn btn-secondary input-group-text" for="come-categ2">居家</label>-->
                         </div>
                     </div>
 
@@ -69,13 +68,12 @@
                     <!-- choose date -->
                     <div class="input-group mb-4 tip-group">
                         <span class="input-group-text bg-label bdy fw-bolder">日期</span>
-                        <input type="date" class="form-control bg-field bdy" name="date">
+                        <input type="date" class="form-control bg-field bdy" id="date" name="date">
                     </div>
 
                     <!-- submit -->
                     <div class="d-flex justify-content-center">
-                        <input class="col-2 btn-done fw-bolder text-light border-0 rounded p-2" type="submit"
-                            value="確認">
+                        <button type="submit" class="col-2 btn-done fw-bolder text-light border-0 rounded p-2">確認</button>
                     </div>
                 </div>
             </article>
@@ -94,11 +92,11 @@
 </body>
 
 <!-- 分類選項 -->
-<template id="showTypes" style="display: none;">
+<template id="showCateg" style="display: none;">
     <div class="p-2">
-        <input type="radio" class="btn-check form-check-input mx-1" name="come-type" id="come-typeN" autocomplete="off"
-            value="TYPE">
-        <label class="btn btn-secondary input-group-text" for="come-typeN">TYPE</label>
+        <input type="radio" class="btn-check form-check-input mx-1" name="come-categ" id="come-categN" autocomplete="off"
+            value="CATEF">
+        <label class="btn btn-secondary input-group-text" for="come-categN">CATEG</label>
     </div>
 </template>
 

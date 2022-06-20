@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycby8gDQsbnVrWubldwQRxXZp6gDaL76p6lISaOG_ii2NHYcjY6-rxUJpK40YsxLo8Un7/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbyPcr2z2uKXWg_fLYuFoScOOJaECpgPOpff1Q_IsTrgtvlcIl8EDsBjdnS7B_2Hx2u0/exec';
 
 let cSwitch = '支出';
 let lastSwitch = 0;
@@ -9,7 +9,7 @@ $(document).ready(function () {
 });
 
 function init() {
-    getTypes(cSwitch);
+    getCateg(cSwitch);
     $('#outcome').addClass('bg-form');
 
     $("input[name='in-out']").click(function (e) {
@@ -18,13 +18,13 @@ function init() {
         if (cSwitch != lastSwitch) {
             // 清空
             $('input[type="text"]').val('');
-            $('input[name="date"]').val('');
-            $('input[name="price"]').val('');
+            $('input[type="date"]').val('');
+            $('input[type="number"]').val('');
             $('.tip-group').find('.tip').remove();
             $('.tip-group .form-control').removeClass('bdr');
-            $('#TYPE').html('');
+            $('#CATEG').html('');
             // 取得支出或收入的分類
-            getTypes(cSwitch);
+            getCateg(cSwitch);
         } else {
             alert('error: ' + data.msg);
         }
@@ -38,7 +38,7 @@ function init() {
 
 
 // -----------------------   取得支出或收入的分類     ----------------------
-function getTypes(cSwitch) {
+function getCateg(cSwitch) {
     lastSwitch = cSwitch;
     $('.loading').css('display', 'grid');
     let params = {};
@@ -54,10 +54,10 @@ function getTypes(cSwitch) {
     }
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
-            let types = data.data;
-            for (let i = 0; i < types.length; i++) {
-                let content = showTypes(i + 1, types[i]);
-                $('#TYPE').append(content);
+            let categ = data.data;
+            for (let i = 0; i < categ.length; i++) {
+                let content = showCateg(i + 1, categ[i]);
+                $('#CATEG').append(content);
             }
             $('.loading').css('display', 'none');
         } else {
@@ -70,11 +70,11 @@ function getTypes(cSwitch) {
     });
 }
 
-function showTypes(n, type) {
+function showCateg(n, categ) {
     let html = `
     <div class="p-2">    
-        <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type${n}" autocomplete="off" value="${type}">
-        <label class="btn btn-secondary input-group-text" for="come-type${n}">${type}</label>
+        <input type="radio" class="btn-check form-check-input" name="come-categ" id="come-categ${n}" autocomplete="off" value="${categ}">
+        <label class="btn btn-secondary input-group-text" for="come-categ${n}">${categ}</label>
     </div>
     `;
     return html;
@@ -172,7 +172,7 @@ function postData() {
     params.memo = $('input[name=memo]').val();
     params.date = $('input[name=date]').val();
     //radio
-    params.type = $('input[name=come-type]:checked').val();
+    params.categ = $('input[name=come-categ]:checked').val();
 
     $('.loading').css('display', 'grid');
     $.post(URL, params, function (data) {
@@ -190,7 +190,7 @@ function postData() {
 
     // 清空欄位
     $('input[type=text]').val('');
-    $('input[name=date]').val('');
-    $('input[name=price]').val('');
+    $('input[type=date]').val('');
+    $('input[type=number]').val('');
     // $('input[type=radio]:checked').val() == undefined;
 }

@@ -1,4 +1,4 @@
-const URL = 'https://script.google.com/macros/s/AKfycbw7NTwwYYhRJ_aFx7tv-YpHg8t5-8q9kLHH7-0TslYfpTUEBQxckhDE4Nf3aPprP9o/exec';
+const URL = 'https://script.google.com/macros/s/AKfycbyPcr2z2uKXWg_fLYuFoScOOJaECpgPOpff1Q_IsTrgtvlcIl8EDsBjdnS7B_2Hx2u0/exec';
 
 let pageID = document.location.toString().split('?')[1];
 let cSwitch;
@@ -35,20 +35,20 @@ function getData() {
 function initPage(charge) {
     cSwitch = charge.come;
     if (cSwitch == '收入') {
-        $('.cSwitch').text('編輯收入項目');
+        $('.cSwitch').text('編輯收入記錄');
     } else {
-        $('.cSwitch').text('編輯支出項目');
+        $('.cSwitch').text('編輯支出記錄');
     }
-    getTypes(cSwitch, charge.type);
+    getCateg(cSwitch, charge.categ);
     $('input[name=price]').val(charge.price);
     $('input[name=memo]').val(charge.memo);
     $('input[name=date]').val(moment(charge.date).format('YYYY-MM-DD'));
-    // $('input[name=come-type]:checked').val(charge.type);
-    // console.log(charge.type)
+    // $('input[name=come-categ]:checked').val(charge.categ);
+    // console.log(charge.categ)
 }
 
 // -----------------------   取得支出或收入的分類     ----------------------
-function getTypes(cSwitch, checkedType) {
+function getCateg(cSwitch, checkedCateg) {
     let params = {};
     switch (cSwitch) {
         case '支出':
@@ -60,11 +60,11 @@ function getTypes(cSwitch, checkedType) {
     }
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
-            let types = data.data;
-            for (let i = 0; i < types.length; i++) {
-                let content = showTypes(i + 1, types[i]);
-                $('#TYPE').append(content);
-                if (types[i].text == checkedType) {
+            let categ = data.data;
+            for (let i = 0; i < categ.length; i++) {
+                let content = showCateg(i + 1, categ[i]);
+                $('#CATEG').append(content);
+                if (categ[i].text == checkedCateg) {
 
                 }
             }
@@ -79,11 +79,11 @@ function getTypes(cSwitch, checkedType) {
     });
 }
 
-function showTypes(n, type) {
+function showCateg(n, categ) {
     let html = `
     <div class="p-2">    
-        <input type="radio" class="btn-check form-check-input" name="come-type" id="come-type${n}" autocomplete="off" value="${type}">
-        <label class="btn btn-secondary input-group-text" for="come-type${n}">${type}</label>
+        <input type="radio" class="btn-check form-check-input" name="come-categ" id="come-categ${n}" autocomplete="off" value="${categ}">
+        <label class="btn btn-secondary input-group-text" for="come-categ${n}">${categ}</label>
     </div>
     `;
     return html;
@@ -159,7 +159,7 @@ function modifyData() {
     params.memo = $('input[name=memo]').val();
     params.date = $('input[name=date]').val();
     //radio
-    params.type = $('input[name=come-type]:checked').val();
+    params.categ = $('input[name=come-categ]:checked').val();
 
     $.post(URL, params, function (data) {
         if (data.result == 'sus') {
