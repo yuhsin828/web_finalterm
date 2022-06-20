@@ -38,8 +38,8 @@
             <article id="" class="my-5">
                 <!-- new income or outcome -->
                 <div class="d-flex justify-content-center">
-                    <input type="button" class="btn fw-bold col-6 rounded-0 rounded-top bg-form" name="in-out" id="outcome"
-                        value="新增支出" cSwitch="支出">
+                    <input type="button" class="btn fw-bold col-6 rounded-0 rounded-top bg-form" name="in-out"
+                        id="outcome" value="新增支出" cSwitch="支出">
                     <input type="button" class="btn fw-bold col-6 rounded-0 rounded-top" name="in-out" id="income"
                         value="新增收入" cSwitch="收入">
                 </div>
@@ -50,13 +50,16 @@
                     <div class="input-group mb-3 tip-group">
                         <div class="d-flex justify-content-start align-items-center flex-wrap form-control minh-150 bg-field border-0"
                             id="CATEG">
-                            <!-- <input type="radio" class="btn-check form-check-input" name="come-categ" id="come-categ1"
-                                autocomplete="off" value="飲食">
-                            <label class="btn btn-secondary input-group-text" for="come-categ1">飲食</label>
-
-                            <input type="radio" class="btn-check form-check-input" name="come-categ" id="come-categ2"
-                                autocomplete="off" value="居家">
-                            <label class="btn btn-secondary input-group-text" for="come-categ2">居家</label>-->
+                            <!-- <div class="p-2 form-check">
+                                <input type="radio" class="btn-check form-check-input" name="come-categ"
+                                    id="come-categ1" autocomplete="off" value="餐飲">
+                                <label class="btn btn-secondary input-group-text" for="come-categ1">餐飲</label>
+                            </div>
+                            <div class="p-2 form-check">
+                                <input type="radio" class="btn-check form-check-input" name="come-categ"
+                                    id="come-categ2" autocomplete="off" value="水果">
+                                <label class="btn btn-secondary input-group-text" for="come-categ2">水果</label>
+                            </div> -->
                         </div>
                     </div>
 
@@ -70,7 +73,7 @@
                     <div class="input-group mb-3 tip-group">
                         <span class="input-group-text bg-label bdy fw-bolder">$</span>
                         <input type="number" min=1 class="form-control bg-field  bdy"
-                            aria-label="Amount (to the nearest dollar)" id="price" name="price">
+                            aria-label="Amount (to the nearest dollar)" id="price" name="price" placeholder="請輸入金額">
                     </div>
 
                     <!-- choose date -->
@@ -101,7 +104,7 @@
 
 <!-- 類別選項 -->
 <template id="showCateg" style="display: none;">
-    <div class="p-2">
+    <div class="p-2 form-check">
         <input type="radio" class="btn-check form-check-input mx-1" name="come-categ" id="come-categN"
             autocomplete="off" value="CATEG">
         <label class="btn btn-secondary input-group-text" for="come-categN">CATEG</label>

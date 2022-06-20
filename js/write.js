@@ -70,7 +70,7 @@ function getCateg(cSwitch) {
 
 function showCateg(n, categ) {
     let html = `
-    <div class="p-2">    
+    <div class="p-2 form-check">    
         <input type="radio" class="btn-check form-check-input" name="come-categ" id="come-categ${n}" autocomplete="off" value="${categ}">
         <label class="btn btn-secondary input-group-text" for="come-categ${n}">${categ}</label>
     </div>
@@ -94,8 +94,9 @@ for (let i = 0; i < event_ary.length; i++) {
     });
 }
 
-$('input[type=radio]').change(function (e) {
-    removeTip($(this)); // 沒作用！？
+$('input[type=radio]').change(function (e) { // 沒作用！？
+    // console.log($('input[type=radio]:checked').val());
+    removeTip($(this));
 });
 $('input[name=date]').change(function (e) {
     removeTip($(this));
@@ -186,5 +187,5 @@ function postData() {
     $('input[type=text]').val('');
     $('input[type=date]').val('');
     $('input[type=number]').val('');
-    // $('input[type=radio]:checked').val() == undefined;
+    $('input[name=come-categ]').prop("checked", false);
 }

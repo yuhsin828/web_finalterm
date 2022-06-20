@@ -50,8 +50,6 @@ function initPage(charge) {
     $('input[name=price]').val(charge.price);
     $('input[name=memo]').val(charge.memo);
     $('input[name=date]').val(moment(charge.date).format('YYYY-MM-DD'));
-    // $('input[name=come-categ]:checked').val(charge.categ);
-    // console.log(charge.categ)
 }
 
 
@@ -72,8 +70,9 @@ function getCateg(cSwitch, checkedCateg) {
             for (let i = 0; i < categ.length; i++) {
                 let content = showCateg(i + 1, categ[i]);
                 $('#CATEG').append(content);
-                if (categ[i].text == checkedCateg) {
-
+                if (categ[i] == checkedCateg) {
+                    // console.log(categ[i]);
+                    $('input[name=come-categ]').prop("checked", true);
                 }
             }
             $('.loading').css('display', 'none');
@@ -89,7 +88,7 @@ function getCateg(cSwitch, checkedCateg) {
 
 function showCateg(n, categ) {
     let html = `
-    <div class="p-2">    
+    <div class="p-2 form-check">    
         <input type="radio" class="btn-check form-check-input" name="come-categ" id="come-categ${n}" autocomplete="off" value="${categ}">
         <label class="btn btn-secondary input-group-text" for="come-categ${n}">${categ}</label>
     </div>
@@ -173,6 +172,7 @@ function modifyData() {
         if (data.result == 'sus') {
             $('.loading').css('display', 'none');
             alert('更新成功');
+            history.back();
         } else {
             $('.loading').css('display', 'none');
             alert('error: ' + data.msg);
